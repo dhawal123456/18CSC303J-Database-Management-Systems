@@ -1,0 +1,314 @@
+SQL> create table employee(id int, name varchar(50), age int, salary int, dept varchar(20));
+create table employee(id int, name varchar(50), age int, salary int, dept varchar(20))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> drop table employee
+  2  ;
+
+Table dropped.
+
+SQL> create table employee(id int, name varchar(50), age int, salary int, dept varchar(20));
+
+Table created.
+
+SQL> insert into employee values(1, 'a', 35, 70000, 'sales');
+
+1 row created.
+
+SQL> insert into employee values(2, 'b', 37, 56000, 'maintenance');
+
+1 row created.
+
+SQL> insert into employee values(3, 'c', 36, 73000, 'quality');
+
+1 row created.
+
+SQL> insert into employee values(4, 'd', 34, 63000, 'sales');
+
+1 row created.
+
+SQL> insert into employee values(5, 'e', 44, 80000, 'maintenance');
+
+1 row created.
+
+SQL> insert into employee values(6, 'f', 36, 76000, 'quality');
+
+1 row created.
+
+SQL> insert into employee values(7, 'g', 28, 53000, 'sales');
+
+1 row created.
+
+SQL> insert into employee values(8, 'h', 32, 83000, 'maintenance');
+
+1 row created.
+
+SQL> insert into employee values(9, 'i', 33, 78000, 'quality');
+
+1 row created.
+
+SQL> insert into employee values(10, 'j', 40, 90000, 'sales');
+
+1 row created.
+
+SQL> select * from employee;
+
+        ID NAME                                                      AGE        
+---------- -------------------------------------------------- ----------        
+    SALARY DEPT                                                                 
+---------- --------------------                                                 
+         1 a                                                          35        
+     70000 sales                                                                
+                                                                                
+         2 b                                                          37        
+     56000 maintenance                                                          
+                                                                                
+         3 c                                                          36        
+     73000 quality                                                              
+                                                                                
+
+        ID NAME                                                      AGE        
+---------- -------------------------------------------------- ----------        
+    SALARY DEPT                                                                 
+---------- --------------------                                                 
+         4 d                                                          34        
+     63000 sales                                                                
+                                                                                
+         5 e                                                          44        
+     80000 maintenance                                                          
+                                                                                
+         6 f                                                          36        
+     76000 quality                                                              
+                                                                                
+
+        ID NAME                                                      AGE        
+---------- -------------------------------------------------- ----------        
+    SALARY DEPT                                                                 
+---------- --------------------                                                 
+         7 g                                                          28        
+     53000 sales                                                                
+                                                                                
+         8 h                                                          32        
+     83000 maintenance                                                          
+                                                                                
+         9 i                                                          33        
+     78000 quality                                                              
+                                                                                
+
+        ID NAME                                                      AGE        
+---------- -------------------------------------------------- ----------        
+    SALARY DEPT                                                                 
+---------- --------------------                                                 
+        10 j                                                          40        
+     90000 sales                                                                
+                                                                                
+
+10 rows selected.
+
+SQL> alter table employee modify name varchar(2);
+
+Table altered.
+
+SQL> select * from employee;
+
+        ID NA        AGE     SALARY DEPT                                        
+---------- -- ---------- ---------- --------------------                        
+         1 a          35      70000 sales                                       
+         2 b          37      56000 maintenance                                 
+         3 c          36      73000 quality                                     
+         4 d          34      63000 sales                                       
+         5 e          44      80000 maintenance                                 
+         6 f          36      76000 quality                                     
+         7 g          28      53000 sales                                       
+         8 h          32      83000 maintenance                                 
+         9 i          33      78000 quality                                     
+        10 j          40      90000 sales                                       
+
+10 rows selected.
+
+SQL> alter table employee modify name varchar(4);
+
+Table altered.
+
+SQL> select * from employee;
+
+        ID NAME        AGE     SALARY DEPT                                      
+---------- ---- ---------- ---------- --------------------                      
+         1 a            35      70000 sales                                     
+         2 b            37      56000 maintenance                               
+         3 c            36      73000 quality                                   
+         4 d            34      63000 sales                                     
+         5 e            44      80000 maintenance                               
+         6 f            36      76000 quality                                   
+         7 g            28      53000 sales                                     
+         8 h            32      83000 maintenance                               
+         9 i            33      78000 quality                                   
+        10 j            40      90000 sales                                     
+
+10 rows selected.
+
+SQL> select distinct salary from employee;
+
+    SALARY                                                                      
+----------                                                                      
+     76000                                                                      
+     70000                                                                      
+     56000                                                                      
+     73000                                                                      
+     63000                                                                      
+     80000                                                                      
+     53000                                                                      
+     83000                                                                      
+     78000                                                                      
+     90000                                                                      
+
+10 rows selected.
+
+SQL> insert into employee values(11, 'k', 40, 90000, 'sales');
+
+1 row created.
+
+SQL> select * from employee;
+
+        ID NAME        AGE     SALARY DEPT                                      
+---------- ---- ---------- ---------- --------------------                      
+         1 a            35      70000 sales                                     
+         2 b            37      56000 maintenance                               
+         3 c            36      73000 quality                                   
+         4 d            34      63000 sales                                     
+         5 e            44      80000 maintenance                               
+         6 f            36      76000 quality                                   
+         7 g            28      53000 sales                                     
+         8 h            32      83000 maintenance                               
+         9 i            33      78000 quality                                   
+        10 j            40      90000 sales                                     
+        11 k            40      90000 sales                                     
+
+11 rows selected.
+
+SQL> select distinct salary from employee;
+
+    SALARY                                                                      
+----------                                                                      
+     76000                                                                      
+     70000                                                                      
+     56000                                                                      
+     73000                                                                      
+     63000                                                                      
+     80000                                                                      
+     53000                                                                      
+     83000                                                                      
+     78000                                                                      
+     90000                                                                      
+
+10 rows selected.
+
+SQL> select min(salary) from employee;
+
+MIN(SALARY)                                                                     
+-----------                                                                     
+      53000                                                                     
+
+SQL> select max(salary) from employee;
+
+MAX(SALARY)                                                                     
+-----------                                                                     
+      90000                                                                     
+
+SQL> select * from employee fetch first 4 rows only;
+
+        ID NAME        AGE     SALARY DEPT                                      
+---------- ---- ---------- ---------- --------------------                      
+         1 a            35      70000 sales                                     
+         2 b            37      56000 maintenance                               
+         3 c            36      73000 quality                                   
+         4 d            34      63000 sales                                     
+
+SQL> select count(id) from employee;
+
+ COUNT(ID)                                                                      
+----------                                                                      
+        11                                                                      
+
+SQL> select avg(salary) from employee;
+
+AVG(SALARY)                                                                     
+-----------                                                                     
+ 73818.1818                                                                     
+
+SQL> select sum(salary) from employee;
+
+SUM(SALARY)                                                                     
+-----------                                                                     
+     812000                                                                     
+
+SQL> select * from employee where age between 30 and 35;
+
+        ID NAME        AGE     SALARY DEPT                                      
+---------- ---- ---------- ---------- --------------------                      
+         1 a            35      70000 sales                                     
+         4 d            34      63000 sales                                     
+         8 h            32      83000 maintenance                               
+         9 i            33      78000 quality                                   
+
+SQL> select * from employee where age not between 30 and 35;
+
+        ID NAME        AGE     SALARY DEPT                                      
+---------- ---- ---------- ---------- --------------------                      
+         2 b            37      56000 maintenance                               
+         3 c            36      73000 quality                                   
+         5 e            44      80000 maintenance                               
+         6 f            36      76000 quality                                   
+         7 g            28      53000 sales                                     
+        10 j            40      90000 sales                                     
+        11 k            40      90000 sales                                     
+
+7 rows selected.
+
+SQL> update employee set name='md' where id=4;
+
+1 row updated.
+
+SQL> update employee set name='mh' where id=8;
+
+1 row updated.
+
+SQL> update employee set name='mg' where id=7;
+
+1 row updated.
+
+SQL> select names from employee where name like 'm%';
+select names from employee where name like 'm%'
+       *
+ERROR at line 1:
+ORA-00904: "NAMES": invalid identifier 
+
+
+SQL> select name from employee where name like 'm%';
+
+NAME                                                                            
+----                                                                            
+md                                                                              
+mg                                                                              
+mh                                                                              
+
+SQL> update employee set name='bd' where id=2;
+
+1 row updated.
+
+SQL> update employee set name='ed' where id=5;
+
+1 row updated.
+
+SQL> select name from employee where name like '%d';
+
+NAME                                                                            
+----                                                                            
+bd                                                                              
+md                                                                              
+ed                                                                              
+
+SQL> spool off

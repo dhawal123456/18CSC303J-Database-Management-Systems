@@ -1,0 +1,98 @@
+SQL> create table student(regno int, name varchar(15), branch varchar(5), section varchar(5), sub int, sub2 int);
+create table student(regno int, name varchar(15), branch varchar(5), section varchar(5), sub int, sub2 int)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> create table student(regno int, name varchar(15), branch varchar(5), section varchar(5), sub int, sub2 int);
+
+Table created.
+
+SQL> insert into student values(1,'a','CSE','A2',78,83);
+
+1 row created.
+
+SQL> insert into Student values(2,'b','Mech','B2',89,85);
+
+1 row created.
+
+SQL> insert into Student values(3,'c','Elect','D1',65,74);
+
+1 row created.
+
+SQL> insert into Student values(4,'d','CSE','E2',94,96);
+
+1 row created.
+
+SQL> insert into Student values(5,'e','Mech','G1',75,84);
+
+1 row created.
+
+SQL> select * from Student;
+
+     REGNO NAME            BRANC SECTI        SUB       SUB2                    
+---------- --------------- ----- ----- ---------- ----------                    
+         1 a               CSE   A2            78         83                    
+         2 b               Mech  B2            89         85                    
+         3 c               Elect D1            65         74                    
+         4 d               CSE   E2            94         96                    
+         5 e               Mech  G1            75         84                    
+
+SQL> select * from Student where sub>80;
+
+     REGNO NAME            BRANC SECTI        SUB       SUB2                    
+---------- --------------- ----- ----- ---------- ----------                    
+         2 b               Mech  B2            89         85                    
+         4 d               CSE   E2            94         96                    
+
+SQL> select * from Student order by sub asc;
+
+     REGNO NAME            BRANC SECTI        SUB       SUB2                    
+---------- --------------- ----- ----- ---------- ----------                    
+         3 c               Elect D1            65         74                    
+         5 e               Mech  G1            75         84                    
+         1 a               CSE   A2            78         83                    
+         2 b               Mech  B2            89         85                    
+         4 d               CSE   E2            94         96                    
+
+SQL> select sum(sub) from Student group by branch;
+
+  SUM(SUB)                                                                      
+----------                                                                      
+       164                                                                      
+       172                                                                      
+        65                                                                      
+
+SQL> update student set sub=sub-10;
+
+5 rows updated.
+
+SQL> select * from student;
+
+     REGNO NAME            BRANC SECTI        SUB       SUB2                    
+---------- --------------- ----- ----- ---------- ----------                    
+         1 a               CSE   A2            68         83                    
+         2 b               Mech  B2            79         85                    
+         3 c               Elect D1            55         74                    
+         4 d               CSE   E2            84         96                    
+         5 e               Mech  G1            65         84                    
+
+SQL> delete from student where regno=4;
+
+1 row deleted.
+
+SQL> select * from student;
+
+     REGNO NAME            BRANC SECTI        SUB       SUB2                    
+---------- --------------- ----- ----- ---------- ----------                    
+         1 a               CSE   A2            68         83                    
+         2 b               Mech  B2            79         85                    
+         3 c               Elect D1            55         74                    
+         5 e               Mech  G1            65         84                    
+
+SQL> spool off

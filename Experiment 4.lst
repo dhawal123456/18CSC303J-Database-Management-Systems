@@ -1,0 +1,191 @@
+SQL> create table employee(id int, empfname varchar(30), emplname varchar(30), empbday date, salary int, stationid int);
+
+Table created.
+
+SQL> insert into employee values(101, 'a', 'b', '31-may-98', 50000, 2341);
+
+1 row created.
+
+SQL> insert into employee values(102, 'c', 'd', '21-jun-88', 50000, 2346);
+
+1 row created.
+
+SQL> insert into employee values(103, 'e', 'f', '25-jul-84', 60000, 2341);
+
+1 row created.
+
+SQL> insert into employee values(104, 'g', 'h', '15-aug-90', 60000, 2343);
+
+1 row created.
+
+SQL> insert into employee values(105, 'i', 'j', '15-jan-82', 65000, 2343);
+
+1 row created.
+
+SQL> select * from employee;
+
+        ID EMPFNAME EMPLNAME EMPBDAY       SALARY  STATIONID                    
+---------- -------- -------- --------- ---------- ----------                    
+       101 a        b        31-MAY-98      50000       2341                    
+       102 c        d        21-JUN-88      50000       2346                    
+       103 e        f        25-JUL-84      60000       2341                    
+       104 g        h        15-AUG-90      60000       2343                    
+       105 i        j        15-JAN-82      65000       2343                    
+
+SQL> select empfname, ASCII(empfname) as code_of_first_char_of_fname from employee;
+
+EMPFNAME CODE_OF_FIRST_CHAR_OF_FNAME                                            
+-------- ---------------------------                                            
+a                                 97                                            
+c                                 99                                            
+e                                101                                            
+g                                103                                            
+i                                105                                            
+
+SQL> select concat ('empfname','emplname')empname from employee;
+
+EMPNAME                                                                         
+----------------                                                                
+empfnameemplname                                                                
+empfnameemplname                                                                
+empfnameemplname                                                                
+empfnameemplname                                                                
+empfnameemplname                                                                
+
+SQL> select concat (empfname,emplname)empname from employee;
+
+EMPNAME                                                                         
+------------------------------------------------------------                    
+ab                                                                              
+cd                                                                              
+ef                                                                              
+gh                                                                              
+ij                                                                              
+
+SQL> select upper(empfname) from employee;
+
+UPPER(EMPFNAME)                                                                 
+------------------------------                                                  
+A                                                                               
+C                                                                               
+E                                                                               
+G                                                                               
+I                                                                               
+
+SQL> select count(id) from employee;
+
+ COUNT(ID)                                                                      
+----------                                                                      
+         5                                                                      
+
+SQL> insert into employee values(106, '   k', 'l   ', '17-feb-84', 55000, 2343);
+
+1 row created.
+
+SQL> select * from employee;
+
+        ID EMPFNAME EMPLNAME EMPBDAY       SALARY  STATIONID                    
+---------- -------- -------- --------- ---------- ----------                    
+       101 a        b        31-MAY-98      50000       2341                    
+       102 c        d        21-JUN-88      50000       2346                    
+       103 e        f        25-JUL-84      60000       2341                    
+       104 g        h        15-AUG-90      60000       2343                    
+       105 i        j        15-JAN-82      65000       2343                    
+       106    k     l        17-FEB-84      55000       2343                    
+
+6 rows selected.
+
+SQL> select ltrim(empfname) from employee;
+
+LTRIM(EMPFNAME)                                                                 
+------------------------------                                                  
+a                                                                               
+c                                                                               
+e                                                                               
+g                                                                               
+i                                                                               
+k                                                                               
+
+6 rows selected.
+
+SQL> insert into employee values(107, 'mnm', 'opp', '17-feb-84', 55000, 2343);
+
+1 row created.
+
+SQL> select replace(empfname,'m','x') from empfname where id = 107;
+select replace(empfname,'m','x') from empfname where id = 107
+                                      *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select replace(empfname,'m','x') from employee where id = 107;
+
+REPLACE(EMPFNAME,'M','X')                                                       
+------------------------------                                                  
+xnx                                                                             
+
+SQL> select empbday, nextmonth(empbday,1), prevmonth(empbday,-1) from employee;
+select empbday, nextmonth(empbday,1), prevmonth(empbday,-1) from employee
+                                      *
+ERROR at line 1:
+ORA-00904: "PREVMONTH": invalid identifier 
+
+
+SQL> select empbday, nextmonth(empbday,1), from employee;
+select empbday, nextmonth(empbday,1), from employee
+                                      *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select empbday, nextmonth(empbday,1) from employee;
+select empbday, nextmonth(empbday,1) from employee
+                *
+ERROR at line 1:
+ORA-00904: "NEXTMONTH": invalid identifier 
+
+
+SQL> select empbday, next_month(empbday,1) from employee;
+select empbday, next_month(empbday,1) from employee
+                *
+ERROR at line 1:
+ORA-00904: "NEXT_MONTH": invalid identifier 
+
+
+SQL> select empbday, add_months(empbday,1) from employee;
+
+EMPBDAY   ADD_MONTH                                                             
+--------- ---------                                                             
+31-MAY-98 30-JUN-98                                                             
+21-JUN-88 21-JUL-88                                                             
+25-JUL-84 25-AUG-84                                                             
+15-AUG-90 15-SEP-90                                                             
+15-JAN-82 15-FEB-82                                                             
+17-FEB-84 17-MAR-84                                                             
+17-FEB-84 17-MAR-84                                                             
+
+7 rows selected.
+
+SQL> select empbday, extract(year from empbday)year;
+select empbday, extract(year from empbday)year
+                                             *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select empbday, extract(year from empbday)year from employee;
+
+EMPBDAY         YEAR                                                            
+--------- ----------                                                            
+31-MAY-98       1998                                                            
+21-JUN-88       1988                                                            
+25-JUL-84       1984                                                            
+15-AUG-90       1990                                                            
+15-JAN-82       1982                                                            
+17-FEB-84       1984                                                            
+17-FEB-84       1984                                                            
+
+7 rows selected.
+
+SQL> spool off
