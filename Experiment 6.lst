@@ -1,0 +1,165 @@
+SQL> create table student(Roll_No int, Student_Name varchar(7));
+
+Table created.
+
+SQL> create table Performance(Roll_No int, Course varchar(7), Marks int);
+
+Table created.
+
+SQL> insert into student values(1, "Raj");
+insert into student values(1, "Raj")
+                              *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into student values(1, 'Raj');
+
+1 row created.
+
+SQL> insert into student values(2, 'Rohit');
+
+1 row created.
+
+SQL> insert into student values(3, 'Raj');
+
+1 row created.
+
+SQL> insert into Performance values(1, 'Math', 80);
+
+1 row created.
+
+SQL> insert into Performance values(1, 'English', 70);
+
+1 row created.
+
+SQL> insert into Performance values(2, 'Math', 75);
+
+1 row created.
+
+SQL> insert into Performance values(3, 'English', 80);
+
+1 row created.
+
+SQL> insert into Performance values(2, 'Physics', 65);
+
+1 row created.
+
+SQL> insert into Performance values(3, 'Math', 80);
+
+1 row created.
+
+SQL> select * from student;
+
+   ROLL_NO STUDENT                                                              
+---------- -------                                                              
+         1 Raj                                                                  
+         2 Rohit                                                                
+         3 Raj                                                                  
+
+SQL> select * from Performance;
+
+   ROLL_NO COURSE       MARKS                                                   
+---------- ------- ----------                                                   
+         1 Math            80                                                   
+         1 English         70                                                   
+         2 Math            75                                                   
+         3 English         80                                                   
+         2 Physics         65                                                   
+         3 Math            80                                                   
+
+6 rows selected.
+
+SQL> select P.Roll_No, s.Student_Name, sum(P.Marks) as Total_Marks from student s, Performance P where s.Roll_No=P.Roll_No group by P.Roll_No;
+select P.Roll_No, s.Student_Name, sum(P.Marks) as Total_Marks from student s, Performance P where s.Roll_No=P.Roll_No group by P.Roll_No
+                  *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select P.Roll_No, sum(P.Marks) as Total_Marks from student s, Performance P where s.Roll_No=P.Roll_No group by P.Roll_No;
+
+   ROLL_NO TOTAL_MARKS                                                          
+---------- -----------                                                          
+         1         150                                                          
+         2         140                                                          
+         3         160                                                          
+
+SQL> create table Passenger(pid int, pname varchar(6), age int);
+
+Table created.
+
+SQL> create table Reservation(pid int, class varchar(2), tid int);
+
+Table created.
+
+SQL> insert into Passenger values(0, 'Sachin', 65);
+
+1 row created.
+
+SQL> insert into Passenger values(1, 'rahul', 66);
+
+1 row created.
+
+SQL> insert into Passenger values(2, 'Sourav', 67);
+
+1 row created.
+
+SQL> insert into Passenger values(3, 'Anil', 69);
+
+1 row created.
+
+SQL> insert into Reservation values(0, 'AC', 8200);
+
+1 row created.
+
+SQL> insert into Reservation values(1, 'AC', 8201);
+
+1 row created.
+
+SQL> insert into Reservation values(2, 'SC', 8201);
+
+1 row created.
+
+SQL> insert into Reservation values(5, 'AC', 8203);
+
+1 row created.
+
+SQL> insert into Reservation values(1, 'SC', 8204);
+
+1 row created.
+
+SQL> insert into Reservation values(3, 'AC', 8202);
+
+1 row created.
+
+SQL> select * from Passenger;
+
+       PID PNAME         AGE                                                    
+---------- ------ ----------                                                    
+         0 Sachin         65                                                    
+         1 rahul          66                                                    
+         2 Sourav         67                                                    
+         3 Anil           69                                                    
+
+SQL> select * from Reservation;
+
+       PID CL        TID                                                        
+---------- -- ----------                                                        
+         0 AC       8200                                                        
+         1 AC       8201                                                        
+         2 SC       8201                                                        
+         5 AC       8203                                                        
+         1 SC       8204                                                        
+         3 AC       8202                                                        
+
+6 rows selected.
+
+SQL> select distinct(P.pname) from Passenger P, Reservation R where P.age>65 and R.class='AC' and P.pid=R.pid;
+
+PNAME                                                                           
+------                                                                          
+rahul                                                                           
+Anil                                                                            
+
+SQL> spool off
