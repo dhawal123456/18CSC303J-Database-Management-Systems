@@ -1,0 +1,41 @@
+SQL> CREATE TABLE employees(id int NOT NULL, name varchar(50), age int, address 
+varchar(50), salary int); 
+SQL> DECLARE 
+2 total_rows number(2); 
+3 BEGIN 
+4 INSERT INTO employees VALUES(1, 'Ramesh', 23, 'Allahbad', 20000); 
+5 INSERT INTO employees VALUES(2, 'Suresh', 22, 'Kanpur', 22000); 
+6 INSERT INTO employees VALUES(3, 'Mahesh', 24, 'Gaziabad', 24000); 
+7 INSERT INTO employees VALUES(4, 'Chandan', 25, 'Noida', 26000); 
+8 INSERT INTO employees VALUES(5, 'Alex', 21, 'Paris', 28000); 
+9 INSERT INTO employees VALUES(6, 'Sunita', 20, 'Delhi', 30000); 
+10
+11 UPDATE employees 
+12 SET salary = salary + 8000 
+13 WHERE age >= 22; 
+14 IF sql%notfound THEN 
+15 dbms_output.put_line('no customers selected'); 
+16 ELSIF sql%found THEN 
+17 total_rows := sql%rowcount; 
+18 dbms_output.put_line( total_rows || ' customers selected '); 
+19 END IF; 
+20 END; 
+21 /
+SQL> select * from employees; 
+
+
+SQL>DECLARE 
+1 e_name emp.name%type; 
+2 e_addr emp.address%type; 
+3 CURSOR e_emp is 
+4 SELECT name, address FROM emp; 
+5 BEGIN 
+6 OPEN e_emp; 
+7 LOOP 
+8 FETCH e_emp into e_name, e_addr; 
+9 EXIT WHEN e_emp%notfound; 
+10 dbms_output.put_line(e_name || ' ' || e_addr); 
+11 END LOOP; 
+12 CLOSE e_emp; 
+13 END; 
+14 / 

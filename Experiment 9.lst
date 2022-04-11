@@ -1,0 +1,61 @@
+SQL> declare
+  2  a number:=10;
+  3  b number:=12;
+  4  c number:=5;
+  5  begin
+  6  dbms_output.put_line('a='||a||' b='||b||' c='||c);
+  7  if a>b AND a>c
+  8  then
+  9  dbms_output.put_line('a is greatest');
+ 10  else
+ 11  if b>a AND b>c
+ 12  then
+ 13  dbms_output.put_line('b is greatest');
+ 14  else
+ 15  dbms_output.put_line('c is greatest');
+ 16  end if;
+ 17  end if;
+ 18  end;
+ 19  /
+
+
+SQL> declare
+  2  n number;
+  3  i number;
+  4  flag number;
+  5
+  6  begin
+  7  i:=2;
+  8  flag:=1;
+  9  n:=&n;
+ 10
+ 11  for i in 2..n/2
+ 12  loop
+ 13  if mod(n,i)=0
+ 14  then
+ 15  flag:=0;
+ 16  exit;
+ 17  end if;
+ 18  end loop;
+ 19
+ 20  if flag=1
+ 21  then
+ 22  dbms_output.put_line('prime');
+ 23  else
+ 24  dbms_output.put_line('not prime');
+ 25  end if;
+ 26  end;
+ 27  /
+
+
+SQL> declare
+  2  n number:=&n;
+  3  begin
+  4  if mod(n,2)=0
+  5  then
+  6  dbms_output.put_line('number is even');
+  7  else
+  8  dbms_output.put_line('number is odd');
+  9  end if;
+ 10  end;
+ 11  /
